@@ -8,6 +8,9 @@ namespace List {
     private:
         std::vector<Node*> vertices;
         int num_of_vertices;
+        void DFS(Node*);
+        void BFS(Node*);
+
     public: 
         DGraph();
         DGraph(int,int);
@@ -23,6 +26,9 @@ namespace List {
         std::vector<List::Node*>::iterator getVertexIterator(int index);
         std::vector<List::Node*>::iterator begin();
         std::vector<List::Node*>::iterator end();
+
+        void DFS_Wrapper();
+        void BFS_Wrapper();
     };
 };
 

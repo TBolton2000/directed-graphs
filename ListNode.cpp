@@ -1,8 +1,9 @@
 #include"ListNode.h"
+#include<vector>
 
 using namespace List;
 
-Node::Node(int val): val(val), edges(std::vector<Node*>()), back_edges(std::vector<Node*>()), visited(false) {}
+Node::Node(int val): val(val), edges(std::vector<Node*>()), back_edges(std::vector<Node*>()), visited(false), edgeType(std::vector<std::string>()) {}
 
 Node::~Node() {
     for(int i = 0; i < back_edges.size(); i++) {
@@ -43,6 +44,7 @@ void Node::addEdge(Node* toAdd) {
     }
     edges.insert(edges.begin()+i, toAdd);
     toAdd->back_edges.push_back(this);
+    edgeType.push_back("back");
 }
 
 void Node::removeEdge(Node* toRemove) {
@@ -55,6 +57,7 @@ void Node::removeEdge(Node* toRemove) {
     for(auto it = edges.begin(); it != edges.end(); it++) {
         if(toRemove == *it) {
             edges.erase(it);
+            edgeType.pop_back();
             break;
         }
     }
@@ -74,4 +77,12 @@ Node* Node::getNodeWith(Node* node) {
             return *it;
     }
     return nullptr;
+}
+
+void Node::setTreePath(int index) {
+    edgeType.at(index) = "tree";
+}
+
+void Node::setCrossEdge(int index) {
+    edgeType.at(index) = "cross";
 }
